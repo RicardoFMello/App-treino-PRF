@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zeus — Dashboard</title>
+  <title>Zeus — Perfil</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0B1D3A">
   <link rel="stylesheet" href="css/style.css">
@@ -17,8 +17,8 @@
         <span class="marca-texto">ZEUS</span>
       </div>
       <nav class="menu-lateral">
-        <a href="dashboard.html" class="item-menu ativo">📊 Dashboard</a>
-        <a href="perfil.html" class="item-menu">👤 Perfil</a>
+        <a href="dashboard.html" class="item-menu">📊 Dashboard</a>
+        <a href="perfil.html" class="item-menu ativo">👤 Perfil</a>
         <a href="#" class="item-menu">📅 Calendário</a>
         <a href="#" class="item-menu">🏋️ Treinos</a>
         <a href="#" class="item-menu">📈 Estatísticas</a>
@@ -29,20 +29,35 @@
 
     <main class="conteudo">
       <header class="cabecalho">
-        <h1>Dashboard</h1>
+        <h1>Meu Perfil</h1>
         <button id="btn-tema" class="btn-tema" title="Alternar tema">🌓</button>
       </header>
 
-      <section id="area-cards" class="grade-cards">
-        <p class="carregando">Carregando dados...</p>
-      </section>
+      <div class="card card-formulario">
+        <form id="form-perfil">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome">
+
+          <label for="data_nascimento">Data de nascimento</label>
+          <input type="date" id="data_nascimento">
+
+          <label for="altura_cm">Altura (cm)</label>
+          <input type="number" id="altura_cm" step="0.1" min="100" max="250">
+
+          <label for="peso_kg">Peso (kg)</label>
+          <input type="number" id="peso_kg" step="0.1" min="30" max="300">
+
+          <p id="mensagem" class="mensagem"></p>
+
+          <button type="submit" id="btn-salvar" class="btn-primario">Salvar</button>
+        </form>
+      </div>
     </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-client.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/taf-calculo.js"></script>
-  <script src="js/dashboard.js"></script>
+  <script src="js/perfil.js"></script>
 </body>
 </html>

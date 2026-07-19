@@ -116,6 +116,57 @@
   border: 2px solid var(--amarelo);
 }
 
+.card-formulario {
+  max-width: 420px;
+}
+
+.card-formulario form {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-formulario label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  margin-top: 14px;
+  color: var(--cinza-medio);
+}
+
+.card-formulario label:first-child { margin-top: 0; }
+
+.card-formulario input {
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--cinza-medio);
+  background: transparent;
+  color: var(--texto);
+  font-size: 14px;
+}
+
+.card-formulario input:focus {
+  outline: none;
+  border-color: var(--amarelo);
+}
+
+.card-formulario .btn-primario {
+  margin-top: 20px;
+  padding: 12px;
+  background: var(--azul-escuro);
+  color: var(--branco);
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.card-formulario .mensagem {
+  font-size: 13px;
+  margin-top: 12px;
+}
+.card-formulario .mensagem.erro { color: var(--erro); }
+.card-formulario .mensagem.sucesso { color: var(--sucesso); }
+
 /* Responsivo: colapsa barra lateral em telas pequenas */
 @media (max-width: 768px) {
   .layout { flex-direction: column; }
