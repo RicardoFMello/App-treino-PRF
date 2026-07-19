@@ -90,6 +90,32 @@
 
 .carregando { color: var(--cinza-medio); font-size: 14px; }
 
+.card {
+  background: var(--card-fundo);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(11, 29, 58, 0.08);
+}
+
+.card h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--cinza-medio);
+  margin-bottom: 8px;
+}
+
+.card p { font-size: 14px; margin-top: 4px; }
+.card .destaque { font-size: 22px; font-weight: 800; color: var(--azul-escuro); }
+
+@media (prefers-color-scheme: dark) {
+  .card .destaque { color: var(--amarelo); }
+}
+
+.card-destaque {
+  border: 2px solid var(--amarelo);
+}
+
 /* Responsivo: colapsa barra lateral em telas pequenas */
 @media (max-width: 768px) {
   .layout { flex-direction: column; }
