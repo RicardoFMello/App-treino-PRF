@@ -1,10 +1,14 @@
 // Controla a tela de login/cadastro
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const sessao = await verificarSessao();
-  if (sessao) {
-    window.location.href = 'dashboard.html';
-    return;
+  try {
+    const sessao = await verificarSessao();
+    if (sessao) {
+      window.location.href = 'dashboard.html';
+      return;
+    }
+  } catch (e) {
+    console.error('Erro ao verificar sessão:', e.message);
   }
 
   const form = document.getElementById('form-auth');
