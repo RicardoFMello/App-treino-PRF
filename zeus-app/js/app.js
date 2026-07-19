@@ -36,22 +36,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnSubmit.textContent = 'Aguarde...';
     mensagem.textContent = '';
 
-    const resultado = modoCadastro
-      ? await cadastrar(email, senha)
-      : await entrar(email, senha);
+    try {
+      const resultado = modoCadastro
+        ? await cadastrar(email, senha)
+        : await entrar(email, senha);
 
-    if (resultado.error) {
-      mensagem.textContent = traduzirErro(resultado.error.message);
+      if (resultado.error) {
+        mensagem.textContent = traduzirErro(resultado.error.message);
+        mensagem.className = 'mensagem erro';
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = modoCadastro ? 'Cadastrar' : 'Entrar';
+      } else if (modoCadastro) {
+        mensagem.textContent = 'Conta criada. Verifique seu e-mail para confirmar.';
+        mensagem.className = 'mensagem sucesso';
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Cadastrar';
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    } catch (erro) {
+      console.error('Erro na autenticação:', erro);
+      mensagem.textContent = 'Falha de conexão. Verifique a URL/chave do Supabase e tente novamente.';
       mensagem.className = 'mensagem erro';
       btnSubmit.disabled = false;
       btnSubmit.textContent = modoCadastro ? 'Cadastrar' : 'Entrar';
-    } else if (modoCadastro) {
-      mensagem.textContent = 'Conta criada. Verifique seu e-mail para confirmar.';
-      mensagem.className = 'mensagem sucesso';
-      btnSubmit.disabled = false;
-      btnSubmit.textContent = 'Cadastrar';
-    } else {
-      window.location.href = 'dashboard.html';
     }
   });
 });
