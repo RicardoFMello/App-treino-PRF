@@ -1,46 +1,108 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zeus — Dashboard</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0B1D3A">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/dashboard.css">
-</head>
-<body>
-  <div class="layout">
-    <aside class="barra-lateral">
-      <div class="marca-lateral">
-        <span class="raio">⚡</span>
-        <span class="marca-texto">ZEUS</span>
-      </div>
-      <nav class="menu-lateral">
-        <a href="dashboard.html" class="item-menu ativo">📊 Dashboard</a>
-        <a href="#" class="item-menu">📅 Calendário</a>
-        <a href="#" class="item-menu">🏋️ Treinos</a>
-        <a href="#" class="item-menu">📈 Estatísticas</a>
-        <a href="#" class="item-menu">🎯 Metas</a>
-      </nav>
-      <button id="btn-sair" class="btn-sair">🚪 Sair</button>
-    </aside>
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
 
-    <main class="conteudo">
-      <header class="cabecalho">
-        <h1>Dashboard</h1>
-        <button id="btn-tema" class="btn-tema" title="Alternar tema">🌓</button>
-      </header>
+.barra-lateral {
+  width: 220px;
+  background: var(--azul-escuro);
+  color: var(--branco);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  flex-shrink: 0;
+}
 
-      <section id="area-cards" class="grade-cards">
-        <p class="carregando">Carregando dados...</p>
-      </section>
-    </main>
-  </div>
+.marca-lateral {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 20px;
+}
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-client.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/dashboard.js"></script>
-</body>
-</html>
+.marca-lateral .raio { font-size: 20px; color: var(--amarelo); }
+.marca-texto { font-weight: 800; letter-spacing: 2px; font-size: 18px; }
+
+.menu-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.item-menu {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  padding: 12px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.item-menu:hover { background: rgba(255,255,255,0.08); color: var(--branco); }
+.item-menu.ativo { background: var(--amarelo); color: var(--azul-escuro); }
+
+.btn-sair {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.8);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.btn-sair:hover { background: rgba(255,255,255,0.1); }
+
+.conteudo {
+  flex: 1;
+  padding: 32px 40px;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.cabecalho h1 { font-size: 24px; font-weight: 800; }
+
+.btn-tema {
+  background: var(--card-fundo);
+  border: 1px solid var(--cinza-medio);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.grade-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.carregando { color: var(--cinza-medio); font-size: 14px; }
+
+/* Responsivo: colapsa barra lateral em telas pequenas */
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .barra-lateral {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+  }
+  .marca-lateral { border: none; margin: 0; padding: 0; }
+  .marca-texto { display: none; }
+  .menu-lateral { flex-direction: row; overflow-x: auto; flex: 1; margin-left: 16px; }
+  .item-menu { white-space: nowrap; padding: 8px 10px; }
+  .btn-sair { padding: 8px 10px; }
+  .conteudo { padding: 20px; }
+}
