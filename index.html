@@ -617,6 +617,163 @@
     supabaseKey: "sb_publishable_7o1qmKFWSm-bPppPa3kMag_617lmP-n"
   };
 
+  // ===== DADOS OFICIAIS TAF/CFP =====
+  const TAF_DATA = {
+    etapa1: { label:"1ª Etapa (Concurso)", minPerTest:2.00, minAverage:3.00,
+      tests:{
+        barra:{ nome:"Flexão em Barra Fixa", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2,pts:0},{min:3,max:3,pts:2.0},{min:4,max:4,pts:2.5},
+            {min:5,max:5,pts:3.0},{min:6,max:6,pts:3.5},{min:7,max:7,pts:4.0},
+            {min:8,max:8,pts:4.5},{min:9,max:Infinity,pts:5.0}
+          ]},
+        shuttle:{ nome:"Shuttle Run (Ir e Vir)", unidade:"segundos", direcao:"menor_melhor",
+          faixas:[
+            {min:14.00,max:Infinity,pts:0},{min:13.50,max:13.99,pts:2.0},
+            {min:13.00,max:13.49,pts:2.5},{min:12.50,max:12.99,pts:3.0},
+            {min:12.00,max:12.49,pts:3.5},{min:11.50,max:11.99,pts:4.0},
+            {min:11.00,max:11.49,pts:4.5},{min:0,max:10.99,pts:5.0}
+          ]},
+        impulsao:{ nome:"Impulsão Horizontal", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2.00,pts:0},{min:2.01,max:2.05,pts:2.0},
+            {min:2.06,max:2.10,pts:2.5},{min:2.11,max:2.15,pts:3.0},
+            {min:2.16,max:2.20,pts:3.5},{min:2.21,max:2.25,pts:4.0},
+            {min:2.26,max:2.30,pts:4.5},{min:2.31,max:Infinity,pts:5.0}
+          ]},
+        abdominal:{ nome:"Flexão Abdominal (1 min)", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:34,pts:0},{min:35,max:38,pts:2.0},{min:39,max:42,pts:2.5},
+            {min:43,max:46,pts:3.0},{min:47,max:50,pts:3.5},{min:51,max:54,pts:4.0},
+            {min:55,max:58,pts:4.5},{min:59,max:Infinity,pts:5.0}
+          ]},
+        corrida:{ nome:"Corrida de 12 Minutos", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2300,pts:0},{min:2301,max:2400,pts:2.0},
+            {min:2401,max:2500,pts:2.5},{min:2501,max:2600,pts:3.0},
+            {min:2601,max:2700,pts:3.5},{min:2701,max:2800,pts:4.0},
+            {min:2801,max:2900,pts:4.5},{min:2901,max:Infinity,pts:5.0}
+          ]}
+      }
+    },
+    cfp: { label:"CFP (Curso de Formação Policial)", minPerTest:6.00, minAverage:7.00,
+      tests:{
+        barra:{ nome:"Flexão em Barra Fixa", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:4,pts:0},{min:5,max:5,pts:6.0},{min:6,max:6,pts:6.5},
+            {min:7,max:7,pts:7.0},{min:8,max:8,pts:7.5},{min:9,max:9,pts:8.0},
+            {min:10,max:10,pts:8.5},{min:11,max:11,pts:9.0},{min:12,max:12,pts:9.5},
+            {min:13,max:Infinity,pts:10.0}
+          ]},
+        shuttle:{ nome:"Shuttle Run (Ir e Vir)", unidade:"segundos", direcao:"menor_melhor",
+          faixas:[
+            {min:12.50,max:Infinity,pts:0},{min:12.00,max:12.49,pts:6.0},
+            {min:11.50,max:11.99,pts:6.5},{min:11.00,max:11.49,pts:7.0},
+            {min:10.50,max:10.99,pts:7.5},{min:10.00,max:10.49,pts:8.0},
+            {min:9.50,max:9.99,pts:8.5},{min:9.00,max:9.49,pts:9.0},
+            {min:8.50,max:8.99,pts:9.5},{min:0,max:8.49,pts:10.0}
+          ]},
+        impulsao:{ nome:"Impulsão Horizontal", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2.10,pts:0},{min:2.11,max:2.15,pts:6.0},
+            {min:2.16,max:2.20,pts:6.5},{min:2.21,max:2.25,pts:7.0},
+            {min:2.26,max:2.30,pts:7.5},{min:2.31,max:2.35,pts:8.0},
+            {min:2.36,max:2.40,pts:8.5},{min:2.41,max:2.45,pts:9.0},
+            {min:2.46,max:2.50,pts:9.5},{min:2.51,max:Infinity,pts:10.0}
+          ]},
+        abdominal:{ nome:"Flexão Abdominal (1 min)", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:37,pts:0},{min:38,max:40,pts:6.0},{min:41,max:43,pts:6.5},
+            {min:44,max:46,pts:7.0},{min:47,max:49,pts:7.5},{min:50,max:52,pts:8.0},
+            {min:53,max:55,pts:8.5},{min:56,max:58,pts:9.0},{min:59,max:61,pts:9.5},
+            {min:62,max:Infinity,pts:10.0}
+          ]},
+        corrida:{ nome:"Corrida de 12 Minutos", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2450,pts:0},{min:2451,max:2550,pts:6.0},
+            {min:2551,max:2650,pts:6.5},{min:2651,max:2750,pts:7.0},
+            {min:2751,max:2850,pts:7.5},{min:2851,max:2950,pts:8.0},
+            {min:2951,max:3050,pts:8.5},{min:3051,max:3150,pts:9.0},
+            {min:3151,max:3250,pts:9.5},{min:3251,max:Infinity,pts:10.0}
+          ]}
+      }
+    }
+  };
+
+  // ===== ENGINE DE CÁLCULO =====
+  function calcPontos(faixas, valor){
+    if (valor === null || valor === undefined || isNaN(valor)) return 0;
+    const f = faixas.find(f => valor >= f.min && valor <= f.max);
+    return f ? f.pts : 0;
+  }
+
+  function calcResultadoTeste(etapaKey, testeKey, valor){
+    const teste = TAF_DATA[etapaKey].tests[testeKey];
+    const pts = calcPontos(teste.faixas, valor);
+    const aprovado = pts >= TAF_DATA[etapaKey].minPerTest;
+    return { pts, aprovado };
+  }
+
+  function calcMediaGeral(etapaKey, resultados){
+    // resultados = { barra, shuttle, impulsao, abdominal, corrida }
+    const chaves = Object.keys(TAF_DATA[etapaKey].tests);
+    let soma = 0, count = 0;
+    const detalhe = {};
+    chaves.forEach(k => {
+      if (resultados[k] !== undefined && resultados[k] !== null && resultados[k] !== '') {
+        const r = calcResultadoTeste(etapaKey, k, parseFloat(resultados[k]));
+        detalhe[k] = r;
+        soma += r.pts; count++;
+      }
+    });
+    const media = count ? soma / count : 0;
+    const aprovadoGeral = media >= TAF_DATA[etapaKey].minAverage &&
+      Object.values(detalhe).every(d => d.pts >= TAF_DATA[etapaKey].minPerTest);
+    return { media: Math.round(media*100)/100, aprovadoGeral, detalhe, testesPreenchidos: count };
+  }
+
+  function calcEvolucao(historico, testeKey){
+    // historico = array ordenado por data crescente de { data, resultados:{...} }
+    const pontos = historico
+      .filter(h => h.resultados[testeKey] !== undefined)
+      .map(h => ({ data: h.data, valor: parseFloat(h.resultados[testeKey]) }));
+    if (pontos.length < 2) return { variacaoPct:0, tendencia:'estável', recorde:pontos[0]?.valor ?? null };
+
+    const anterior = pontos[pontos.length-2].valor;
+    const ultimo = pontos[pontos.length-1].valor;
+    const teste = TAF_DATA.etapa1.tests[testeKey];
+    const melhorMaior = teste?.direcao !== 'menor_melhor';
+
+    const diff = melhorMaior ? ultimo - anterior : anterior - ultimo;
+    const variacaoPct = anterior !== 0 ? Math.round((diff/Math.abs(anterior))*10000)/100 : 0;
+    const recorde = melhorMaior ? Math.max(...pontos.map(p=>p.valor)) : Math.min(...pontos.map(p=>p.valor));
+    const tendencia = variacaoPct > 0.5 ? 'subindo' : variacaoPct < -0.5 ? 'caindo' : 'estável';
+
+    return { variacaoPct, tendencia, recorde, anterior, ultimo };
+  }
+
+  function calcPrevisaoMeta(historico, testeKey, metaValor){
+    const pontos = historico
+      .filter(h => h.resultados[testeKey] !== undefined)
+      .map(h => ({ data:new Date(h.data), valor: parseFloat(h.resultados[testeKey]) }));
+    if (pontos.length < 2) return { diasEstimados:null, mensagem:'Dados insuficientes para previsão.' };
+
+    const primeiro = pontos[0], ultimo = pontos[pontos.length-1];
+    const dias = (ultimo.data - primeiro.data) / 86400000;
+    const teste = TAF_DATA.etapa1.tests[testeKey];
+    const melhorMaior = teste?.direcao !== 'menor_melhor';
+    const ritmoDia = dias > 0 ? (ultimo.valor - primeiro.valor) / dias : 0;
+
+    if ((melhorMaior && ritmoDia <= 0) || (!melhorMaior && ritmoDia >= 0)) {
+      return { diasEstimados:null, mensagem:'Sem tendência de evolução suficiente para prever.' };
+    }
+    const faltante = melhorMaior ? metaValor - ultimo.valor : ultimo.valor - metaValor;
+    if (faltante <= 0) return { diasEstimados:0, mensagem:'Meta já atingida!' };
+
+    const diasEstimados = Math.ceil(faltante / Math.abs(ritmoDia));
+    return { diasEstimados, mensagem:`Estimativa de ${diasEstimados} dias para atingir a meta.` };
+  }
+
   // Tema
   const root = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
@@ -1018,162 +1175,6 @@
   });
   document.querySelector('.sidebar').appendChild(installBtn);
 
-  // ===== DADOS OFICIAIS TAF/CFP =====
-  const TAF_DATA = {
-    etapa1: { label:"1ª Etapa (Concurso)", minPerTest:2.00, minAverage:3.00,
-      tests:{
-        barra:{ nome:"Flexão em Barra Fixa", unidade:"repetições", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:2,pts:0},{min:3,max:3,pts:2.0},{min:4,max:4,pts:2.5},
-            {min:5,max:5,pts:3.0},{min:6,max:6,pts:3.5},{min:7,max:7,pts:4.0},
-            {min:8,max:8,pts:4.5},{min:9,max:Infinity,pts:5.0}
-          ]},
-        shuttle:{ nome:"Shuttle Run (Ir e Vir)", unidade:"segundos", direcao:"menor_melhor",
-          faixas:[
-            {min:14.00,max:Infinity,pts:0},{min:13.50,max:13.99,pts:2.0},
-            {min:13.00,max:13.49,pts:2.5},{min:12.50,max:12.99,pts:3.0},
-            {min:12.00,max:12.49,pts:3.5},{min:11.50,max:11.99,pts:4.0},
-            {min:11.00,max:11.49,pts:4.5},{min:0,max:10.99,pts:5.0}
-          ]},
-        impulsao:{ nome:"Impulsão Horizontal", unidade:"metros", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:2.00,pts:0},{min:2.01,max:2.05,pts:2.0},
-            {min:2.06,max:2.10,pts:2.5},{min:2.11,max:2.15,pts:3.0},
-            {min:2.16,max:2.20,pts:3.5},{min:2.21,max:2.25,pts:4.0},
-            {min:2.26,max:2.30,pts:4.5},{min:2.31,max:Infinity,pts:5.0}
-          ]},
-        abdominal:{ nome:"Flexão Abdominal (1 min)", unidade:"repetições", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:34,pts:0},{min:35,max:38,pts:2.0},{min:39,max:42,pts:2.5},
-            {min:43,max:46,pts:3.0},{min:47,max:50,pts:3.5},{min:51,max:54,pts:4.0},
-            {min:55,max:58,pts:4.5},{min:59,max:Infinity,pts:5.0}
-          ]},
-        corrida:{ nome:"Corrida de 12 Minutos", unidade:"metros", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:2300,pts:0},{min:2301,max:2400,pts:2.0},
-            {min:2401,max:2500,pts:2.5},{min:2501,max:2600,pts:3.0},
-            {min:2601,max:2700,pts:3.5},{min:2701,max:2800,pts:4.0},
-            {min:2801,max:2900,pts:4.5},{min:2901,max:Infinity,pts:5.0}
-          ]}
-      }
-    },
-    cfp: { label:"CFP (Curso de Formação Policial)", minPerTest:6.00, minAverage:7.00,
-      tests:{
-        barra:{ nome:"Flexão em Barra Fixa", unidade:"repetições", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:4,pts:0},{min:5,max:5,pts:6.0},{min:6,max:6,pts:6.5},
-            {min:7,max:7,pts:7.0},{min:8,max:8,pts:7.5},{min:9,max:9,pts:8.0},
-            {min:10,max:10,pts:8.5},{min:11,max:11,pts:9.0},{min:12,max:12,pts:9.5},
-            {min:13,max:Infinity,pts:10.0}
-          ]},
-        shuttle:{ nome:"Shuttle Run (Ir e Vir)", unidade:"segundos", direcao:"menor_melhor",
-          faixas:[
-            {min:12.50,max:Infinity,pts:0},{min:12.00,max:12.49,pts:6.0},
-            {min:11.50,max:11.99,pts:6.5},{min:11.00,max:11.49,pts:7.0},
-            {min:10.50,max:10.99,pts:7.5},{min:10.00,max:10.49,pts:8.0},
-            {min:9.50,max:9.99,pts:8.5},{min:9.00,max:9.49,pts:9.0},
-            {min:8.50,max:8.99,pts:9.5},{min:0,max:8.49,pts:10.0}
-          ]},
-        impulsao:{ nome:"Impulsão Horizontal", unidade:"metros", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:2.10,pts:0},{min:2.11,max:2.15,pts:6.0},
-            {min:2.16,max:2.20,pts:6.5},{min:2.21,max:2.25,pts:7.0},
-            {min:2.26,max:2.30,pts:7.5},{min:2.31,max:2.35,pts:8.0},
-            {min:2.36,max:2.40,pts:8.5},{min:2.41,max:2.45,pts:9.0},
-            {min:2.46,max:2.50,pts:9.5},{min:2.51,max:Infinity,pts:10.0}
-          ]},
-        abdominal:{ nome:"Flexão Abdominal (1 min)", unidade:"repetições", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:37,pts:0},{min:38,max:40,pts:6.0},{min:41,max:43,pts:6.5},
-            {min:44,max:46,pts:7.0},{min:47,max:49,pts:7.5},{min:50,max:52,pts:8.0},
-            {min:53,max:55,pts:8.5},{min:56,max:58,pts:9.0},{min:59,max:61,pts:9.5},
-            {min:62,max:Infinity,pts:10.0}
-          ]},
-        corrida:{ nome:"Corrida de 12 Minutos", unidade:"metros", direcao:"maior_melhor",
-          faixas:[
-            {min:0,max:2450,pts:0},{min:2451,max:2550,pts:6.0},
-            {min:2551,max:2650,pts:6.5},{min:2651,max:2750,pts:7.0},
-            {min:2751,max:2850,pts:7.5},{min:2851,max:2950,pts:8.0},
-            {min:2951,max:3050,pts:8.5},{min:3051,max:3150,pts:9.0},
-            {min:3151,max:3250,pts:9.5},{min:3251,max:Infinity,pts:10.0}
-          ]}
-      }
-    }
-  };
-
-  // ===== ENGINE DE CÁLCULO =====
-  function calcPontos(faixas, valor){
-    if (valor === null || valor === undefined || isNaN(valor)) return 0;
-    const f = faixas.find(f => valor >= f.min && valor <= f.max);
-    return f ? f.pts : 0;
-  }
-
-  function calcResultadoTeste(etapaKey, testeKey, valor){
-    const teste = TAF_DATA[etapaKey].tests[testeKey];
-    const pts = calcPontos(teste.faixas, valor);
-    const aprovado = pts >= TAF_DATA[etapaKey].minPerTest;
-    return { pts, aprovado };
-  }
-
-  function calcMediaGeral(etapaKey, resultados){
-    // resultados = { barra, shuttle, impulsao, abdominal, corrida }
-    const chaves = Object.keys(TAF_DATA[etapaKey].tests);
-    let soma = 0, count = 0;
-    const detalhe = {};
-    chaves.forEach(k => {
-      if (resultados[k] !== undefined && resultados[k] !== null && resultados[k] !== '') {
-        const r = calcResultadoTeste(etapaKey, k, parseFloat(resultados[k]));
-        detalhe[k] = r;
-        soma += r.pts; count++;
-      }
-    });
-    const media = count ? soma / count : 0;
-    const aprovadoGeral = media >= TAF_DATA[etapaKey].minAverage &&
-      Object.values(detalhe).every(d => d.pts >= TAF_DATA[etapaKey].minPerTest);
-    return { media: Math.round(media*100)/100, aprovadoGeral, detalhe, testesPreenchidos: count };
-  }
-
-  function calcEvolucao(historico, testeKey){
-    // historico = array ordenado por data crescente de { data, resultados:{...} }
-    const pontos = historico
-      .filter(h => h.resultados[testeKey] !== undefined)
-      .map(h => ({ data: h.data, valor: parseFloat(h.resultados[testeKey]) }));
-    if (pontos.length < 2) return { variacaoPct:0, tendencia:'estável', recorde:pontos[0]?.valor ?? null };
-
-    const anterior = pontos[pontos.length-2].valor;
-    const ultimo = pontos[pontos.length-1].valor;
-    const teste = TAF_DATA.etapa1.tests[testeKey];
-    const melhorMaior = teste?.direcao !== 'menor_melhor';
-
-    const diff = melhorMaior ? ultimo - anterior : anterior - ultimo;
-    const variacaoPct = anterior !== 0 ? Math.round((diff/Math.abs(anterior))*10000)/100 : 0;
-    const recorde = melhorMaior ? Math.max(...pontos.map(p=>p.valor)) : Math.min(...pontos.map(p=>p.valor));
-    const tendencia = variacaoPct > 0.5 ? 'subindo' : variacaoPct < -0.5 ? 'caindo' : 'estável';
-
-    return { variacaoPct, tendencia, recorde, anterior, ultimo };
-  }
-
-  function calcPrevisaoMeta(historico, testeKey, metaValor){
-    const pontos = historico
-      .filter(h => h.resultados[testeKey] !== undefined)
-      .map(h => ({ data:new Date(h.data), valor: parseFloat(h.resultados[testeKey]) }));
-    if (pontos.length < 2) return { diasEstimados:null, mensagem:'Dados insuficientes para previsão.' };
-
-    const primeiro = pontos[0], ultimo = pontos[pontos.length-1];
-    const dias = (ultimo.data - primeiro.data) / 86400000;
-    const teste = TAF_DATA.etapa1.tests[testeKey];
-    const melhorMaior = teste?.direcao !== 'menor_melhor';
-    const ritmoDia = dias > 0 ? (ultimo.valor - primeiro.valor) / dias : 0;
-
-    if ((melhorMaior && ritmoDia <= 0) || (!melhorMaior && ritmoDia >= 0)) {
-      return { diasEstimados:null, mensagem:'Sem tendência de evolução suficiente para prever.' };
-    }
-    const faltante = melhorMaior ? metaValor - ultimo.valor : ultimo.valor - metaValor;
-    if (faltante <= 0) return { diasEstimados:0, mensagem:'Meta já atingida!' };
-
-    const diasEstimados = Math.ceil(faltante / Math.abs(ritmoDia));
-    return { diasEstimados, mensagem:`Estimativa de ${diasEstimados} dias para atingir a meta.` };
-  }
 
   // ===== AUTH =====
   const { createClient } = supabase;
