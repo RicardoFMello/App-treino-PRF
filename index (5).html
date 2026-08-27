@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Zeus · Preparação TAF PRF</title>
+<meta name="theme-color" content="#0B1E3D">
+<meta name="description" content="Zeus — treinador inteligente para preparação física do TAF da PRF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zeus">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='4' y1='2' x2='20' y2='22'%3E%3Cstop stop-color='%232E6FF2'/%3E%3Cstop offset='1' stop-color='%23F2B705'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='%230B1E3D'/%3E%3Cpath d='M13 2L4 14H11L9.5 22L20 9H12.5L13 2Z' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='4' y1='2' x2='20' y2='22'%3E%3Cstop stop-color='%232E6FF2'/%3E%3Cstop offset='1' stop-color='%23F2B705'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='%230B1E3D'/%3E%3Cpath d='M13 2L4 14H11L9.5 22L20 9H12.5L13 2Z' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="manifest" id="manifestLink" href="">
+<script>
+  // Manifest gerado em memória (mantém tudo em um único arquivo)
+  const ZEUS_MANIFEST = {
+    name: "Zeus - Preparação TAF PRF",
+    short_name: "Zeus",
+    description: "Treinador inteligente para preparação física do TAF da PRF",
+    start_url: ".",
+    scope: ".",
+    display: "standalone",
+    background_color: "#0B0E14",
+    theme_color: "#0B1E3D",
+    orientation: "portrait-primary",
+    icons: [
+      { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='4' y1='2' x2='20' y2='22'%3E%3Cstop stop-color='%232E6FF2'/%3E%3Cstop offset='1' stop-color='%23F2B705'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='%230B1E3D'/%3E%3Cpath d='M13 2L4 14H11L9.5 22L20 9H12.5L13 2Z' fill='url(%23g)'/%3E%3C/svg%3E", sizes: "any", type: "image/svg+xml", purpose: "any" }
+    ]
+  };
+  document.getElementById('manifestLink').href =
+    'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(ZEUS_MANIFEST));
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1E3D;
+    --blue:#2E6FF2;
+    --gold:#F2B705;
+    --slate:#566073;
+    --ice:#F7F8FA;
+
+    --bg:#0B0E14;
+    --bg-elev:#121722;
+    --surface:#171D2B;
+    --border:rgba(255,255,255,0.08);
+    --text:#F2F4F8;
+    --text-dim:#8B93A7;
+    --accent:var(--blue);
+    --accent-2:var(--gold);
+    --success:#2FBF71;
+    --danger:#E5484D;
+    --radius:16px;
+    --radius-sm:10px;
+    --shadow:0 8px 30px rgba(0,0,0,0.35);
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+
+  [data-theme="light"]{
+    --bg:#F7F8FA;
+    --bg-elev:#FFFFFF;
+    --surface:#FFFFFF;
+    --border:rgba(11,30,61,0.08);
+    --text:#0B1E3D;
+    --text-dim:#566073;
+    --shadow:0 8px 24px rgba(11,30,61,0.08);
+  }
+
+  *,*::before,*::after{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    transition:background .3s var(--ease), color .3s var(--ease);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.font-display{
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    letter-spacing:-0.02em;
+  }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+  ::selection{background:var(--blue); color:#fff;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+
+  /* ===== SHELL ===== */
+  .app-shell{ display:flex; min-height:100vh; }
+
+  .sidebar{
+    width:240px; flex-shrink:0;
+    background:var(--bg-elev);
+    border-right:1px solid var(--border);
+    display:flex; flex-direction:column;
+    padding:20px 16px;
+    position:sticky; top:0; height:100vh;
+    transition:transform .3s var(--ease);
+    z-index:100;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; padding:8px 10px 24px; }
+  .brand-name{ font-size:20px; font-weight:700; }
+
+  .nav{ display:flex; flex-direction:column; gap:4px; flex:1; }
+  .nav-item{
+    display:flex; align-items:center; gap:10px;
+    padding:11px 12px; border-radius:var(--radius-sm);
+    color:var(--text-dim); font-size:14px; font-weight:500;
+    transition:background .2s var(--ease), color .2s var(--ease);
+  }
+  .nav-item:hover{ background:var(--border); color:var(--text); }
+  .nav-item.active{ background:var(--blue); color:#fff; }
+  .nav-dot{ width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.5; }
+  .nav-item.active .nav-dot{ opacity:1; }
+
+  .theme-toggle{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 12px; border-radius:var(--radius-sm);
+    color:var(--text-dim); font-size:13px; font-weight:500;
+    border:1px solid var(--border);
+  }
+  .theme-toggle:hover{ background:var(--border); }
+
+  .content{ flex:1; min-width:0; display:flex; flex-direction:column; }
+
+  .topbar{
+    display:flex; align-items:center; gap:14px;
+    padding:18px 28px; border-bottom:1px solid var(--border);
+    position:sticky; top:0; background:var(--bg); z-index:50;
+  }
+  .page-title{ font-size:20px; font-weight:600; flex:1; }
+  .menu-btn{ display:none; font-size:20px; color:var(--text); }
+  .user-chip{
+    width:34px; height:34px; border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--gold));
+    color:#fff; font-size:12px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  .view-container{ padding:28px; flex:1; }
+
+  @media (max-width:900px){
+    .sidebar{
+      position:fixed; left:0; transform:translateX(-100%);
+      box-shadow:var(--shadow);
+    }
+    .sidebar.open{ transform:translateX(0); }
+    .menu-btn{ display:block; }
+    .view-container{ padding:18px; }
+    .topbar{ padding:14px 18px; }
+  }
+
+  /* ===== DASHBOARD ===== */
+  .view{ display:flex; flex-direction:column; gap:22px; max-width:1200px; }
+
+  .mission-card{
+    background:linear-gradient(135deg,var(--navy),#122a52);
+    border-radius:var(--radius);
+    padding:28px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px; flex-wrap:wrap;
+    box-shadow:var(--shadow);
+    color:#fff;
+  }
+  .eyebrow{
+    font-size:12px; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--gold); font-weight:600;
+  }
+  .mission-info h2{ font-size:22px; margin:6px 0 4px; }
+  .mission-sub{ color:rgba(255,255,255,.65); font-size:13px; }
+  .btn-primary{
+    background:var(--gold); color:var(--navy); font-weight:700;
+    padding:12px 22px; border-radius:999px; font-size:14px;
+    transition:transform .2s var(--ease), filter .2s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-primary:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+
+  .grid-cards{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+  }
+  .stat-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:18px;
+    display:flex; flex-direction:column; gap:6px;
+    transition:transform .2s var(--ease), border-color .2s var(--ease);
+  }
+  .stat-card:hover{ transform:translateY(-2px); border-color:var(--blue); }
+  .stat-label{ font-size:12px; color:var(--text-dim); font-weight:500; }
+  .stat-value{ font-size:26px; font-weight:700; }
+  .stat-value small{ font-size:13px; font-weight:500; color:var(--text-dim); }
+  .stat-trend{ font-size:12px; color:var(--text-dim); }
+
+  .panel-row{ display:grid; grid-template-columns:1.4fr 1fr; gap:16px; }
+  .panel{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:20px;
+  }
+  .panel-title{ font-size:15px; font-weight:600; margin-bottom:14px; }
+
+  .empty-state{
+    display:flex; flex-direction:column; gap:4px;
+    padding:30px 10px; text-align:center; color:var(--text-dim);
+  }
+  .empty-state p{ color:var(--text); font-weight:500; font-size:14px; }
+  .empty-state span{ font-size:12px; }
+
+  .milestone-list{ list-style:none; display:flex; flex-direction:column; gap:14px; }
+  .milestone-list li{ display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-dim); }
+  .milestone-dot{
+    width:8px; height:8px; border-radius:50%;
+    border:2px solid var(--blue); flex-shrink:0;
+  }
+
+  @media (max-width:900px){
+    .grid-cards{ grid-template-columns:repeat(2,1fr); }
+    .panel-row{ grid-template-columns:1fr; }
+  }
+  @media (max-width:520px){
+    .grid-cards{ grid-template-columns:1fr; }
+  }
+
+  /* ===== AUTH ===== */
+  .auth-overlay{
+    position:fixed; inset:0; z-index:1000;
+    display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 30% 20%, #122a52, var(--navy) 70%);
+    padding:20px;
+  }
+  .auth-card{
+    width:100%; max-width:360px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:32px 26px;
+    box-shadow:var(--shadow);
+  }
+  .auth-sub{ text-align:center; color:var(--text-dim); font-size:13px; margin-bottom:22px; }
+  .auth-form{ display:flex; flex-direction:column; gap:12px; }
+  .auth-form input{
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:12px 14px;
+    color:var(--text); font-size:14px; font-family:inherit;
+    transition:border-color .2s var(--ease);
+  }
+  .auth-form input:focus{ outline:none; border-color:var(--blue); }
+  .auth-msg{ text-align:center; font-size:12px; margin-top:12px; min-height:14px; }
+  .auth-msg.error{ color:var(--danger); }
+
+  /* ===== CALENDÁRIO ===== */
+  .calendar-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:20px;
+  }
+  .calendar-header{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .calendar-header h3{ font-size:16px; text-transform:capitalize; }
+  .cal-nav{
+    width:32px; height:32px; border-radius:50%;
+    border:1px solid var(--border); font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s var(--ease);
+  }
+  .cal-nav:hover{ background:var(--border); }
+
+  .calendar-grid{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:6px;
+  }
+  .cal-dow{
+    text-align:center; font-size:11px; color:var(--text-dim);
+    font-weight:600; padding-bottom:6px;
+  }
+  .cal-day{
+    aspect-ratio:1; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; color:var(--text-dim);
+    border:1px solid transparent; cursor:pointer;
+    transition:background .2s var(--ease), border-color .2s var(--ease);
+    position:relative;
+  }
+  .cal-day.in-month{ color:var(--text); }
+  .cal-day:hover{ background:var(--border); }
+  .cal-day.today{ border-color:var(--gold); font-weight:700; }
+  .cal-day.has-record::after{
+    content:''; position:absolute; bottom:5px;
+    width:5px; height:5px; border-radius:50%; background:var(--blue);
+  }
+  .cal-day.empty{ cursor:default; }
+
+  .historico-list{ display:flex; flex-direction:column; gap:10px; }
+  .historico-item{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 14px; border:1px solid var(--border); border-radius:var(--radius-sm);
+    font-size:13px;
+  }
+  .historico-item .hist-date{ font-weight:600; }
+  .historico-item .hist-media{ color:var(--text-dim); }
+  .badge{
+    font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px;
+  }
+  .badge.aprovado{ background:rgba(47,191,113,.15); color:var(--success); }
+  .badge.reprovado{ background:rgba(229,72,77,.15); color:var(--danger); }
+
+  /* ===== MODAL ===== */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:900;
+    background:rgba(0,0,0,.55);
+    display:flex; align-items:center; justify-content:center;
+    padding:16px;
+  }
+  .modal-card{
+    width:100%; max-width:420px; max-height:90vh; overflow-y:auto;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);
+  }
+  .modal-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .modal-close{ font-size:16px; color:var(--text-dim); }
+  .day-form{ display:flex; flex-direction:column; gap:12px; }
+  .day-form label{ font-size:12px; color:var(--text-dim); display:flex; flex-direction:column; gap:6px; }
+  .day-form select, .day-form input{
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:10px 12px;
+    color:var(--text); font-size:14px; font-family:inherit;
+  }
+  .day-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .day-result{
+    font-size:13px; padding:10px 12px; border-radius:var(--radius-sm);
+    background:var(--bg); text-align:center; color:var(--text-dim);
+  }
+
+  /* ===== EXERCÍCIOS / EVOLUÇÃO ===== */
+  .etapa-select{
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:9px 12px;
+    color:var(--text); font-size:13px; font-family:inherit;
+  }
+  .ex-card-header{ display:flex; justify-content:space-between; align-items:center; }
+  .ex-progress{
+    width:100%; height:6px; border-radius:999px; background:var(--border);
+    overflow:hidden; margin-top:4px;
+  }
+  .ex-progress-fill{ height:100%; background:linear-gradient(90deg,var(--blue),var(--gold)); border-radius:999px; }
+</style>
+</head>
+<body>
+
+<!-- ============ LAYOUT SHELL ============ -->
+<div class="app-shell" id="appShell" style="display:none;">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L4 14H11L9.5 22L20 9H12.5L13 2Z" fill="url(#zeusGrad)"/>
+        <defs>
+          <linearGradient id="zeusGrad" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2E6FF2"/>
+            <stop offset="1" stop-color="#F2B705"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-name font-display">Zeus</span>
+    </div>
+
+    <nav class="nav">
+      <a href="#dashboard" class="nav-item active" data-view="dashboard">
+        <span class="nav-dot"></span> Dashboard
+      </a>
+      <a href="#treino" class="nav-item" data-view="treino">
+        <span class="nav-dot"></span> Treino do dia
+      </a>
+      <a href="#calendario" class="nav-item" data-view="calendario">
+        <span class="nav-dot"></span> Calendário
+      </a>
+      <a href="#exercicios" class="nav-item" data-view="exercicios">
+        <span class="nav-dot"></span> Exercícios TAF
+      </a>
+      <a href="#evolucao" class="nav-item" data-view="evolucao">
+        <span class="nav-dot"></span> Evolução
+      </a>
+      <a href="#saude" class="nav-item" data-view="saude">
+        <span class="nav-dot"></span> Saúde
+      </a>
+      <a href="#metas" class="nav-item" data-view="metas">
+        <span class="nav-dot"></span> Metas
+      </a>
+    </nav>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+      <span id="themeIcon">☀️</span> <span id="themeLabel">Modo claro</span>
+    </button>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      <h1 class="page-title font-display" id="pageTitle">Dashboard</h1>
+      <div class="user-chip">RM</div>
+    </header>
+
+    <section class="view-container" id="viewContainer">
+      <div class="view" id="view-dashboard">
+
+        <div class="mission-card">
+          <div class="mission-info">
+            <span class="eyebrow">Missão de hoje</span>
+            <h2 class="font-display" id="missionTitle">Treino de força + resistência</h2>
+            <p class="mission-sub" id="missionSub">5 exercícios · ~45 min estimados</p>
+          </div>
+          <button class="btn-primary" id="startTrainingBtn">Iniciar treino</button>
+        </div>
+
+        <div class="grid-cards">
+          <div class="stat-card">
+            <span class="stat-label">Sequência atual</span>
+            <span class="stat-value font-display">0 <small>dias</small></span>
+            <span class="stat-trend">Comece hoje 🔥</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Média geral TAF</span>
+            <span class="stat-value font-display">--</span>
+            <span class="stat-trend">Sem registros ainda</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Evolução semanal</span>
+            <span class="stat-value font-display">--</span>
+            <span class="stat-trend">Aguardando dados</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Dias até a meta</span>
+            <span class="stat-value font-display">--</span>
+            <span class="stat-trend">Defina uma meta</span>
+          </div>
+        </div>
+
+        <div class="panel-row">
+          <div class="panel">
+            <h3 class="panel-title">Evolução recente</h3>
+            <div class="empty-state">
+              <p>Nenhum treino registrado ainda.</p>
+              <span>Seus gráficos aparecem aqui assim que você começar.</span>
+            </div>
+          </div>
+          <div class="panel">
+            <h3 class="panel-title">Próximos marcos</h3>
+            <ul class="milestone-list">
+              <li><span class="milestone-dot"></span> Primeira avaliação física</li>
+              <li><span class="milestone-dot"></span> Primeiro treino completo</li>
+              <li><span class="milestone-dot"></span> 7 dias de sequência</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="view" id="view-calendario" style="display:none;">
+        <div class="calendar-card">
+          <div class="calendar-header">
+            <button class="cal-nav" id="calPrev">‹</button>
+            <h3 class="font-display" id="calMonthLabel">—</h3>
+            <button class="cal-nav" id="calNext">›</button>
+          </div>
+          <div class="calendar-grid" id="calGrid"></div>
+        </div>
+
+        <div class="panel" style="margin-top:16px;">
+          <h3 class="panel-title">Histórico de treinos</h3>
+          <div id="historicoList" class="historico-list">
+            <div class="empty-state">
+              <p>Nenhum treino registrado ainda.</p>
+              <span>Clique em um dia no calendário para adicionar um registro.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="view" id="view-exercicios" style="display:none;">
+        <div class="panel" style="margin-bottom:16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <span class="stat-label">Etapa de referência</span>
+          <select id="exEtapaSel" class="etapa-select">
+            <option value="etapa1">1ª Etapa (Concurso)</option>
+            <option value="cfp">CFP</option>
+          </select>
+        </div>
+        <div class="grid-cards" id="exerciciosGrid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr));"></div>
+      </div>
+
+      <div class="view" id="view-evolucao" style="display:none;">
+        <div class="panel" style="margin-bottom:16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <span class="stat-label">Exercício</span>
+          <select id="evTesteSel" class="etapa-select"></select>
+        </div>
+        <div class="panel">
+          <h3 class="panel-title">Evolução ao longo do tempo</h3>
+          <canvas id="evChart" height="110"></canvas>
+        </div>
+        <div class="grid-cards" style="margin-top:16px;">
+          <div class="stat-card">
+            <span class="stat-label">Recorde pessoal</span>
+            <span class="stat-value font-display" id="evRecorde">--</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Tendência</span>
+            <span class="stat-value font-display" id="evTendencia">--</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Variação (últ. registro)</span>
+            <span class="stat-value font-display" id="evVariacao">--</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="view" id="view-saude" style="display:none;">
+        <div class="grid-cards">
+          <div class="stat-card">
+            <span class="stat-label">IMC atual</span>
+            <span class="stat-value font-display" id="saudeImc">--</span>
+            <span class="stat-trend" id="saudeImcLabel">Sem dados</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Peso atual</span>
+            <span class="stat-value font-display" id="saudePeso">93 <small>kg</small></span>
+            <span class="stat-trend" id="saudePesoTrend">Base cadastrada</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Sono (média 7d)</span>
+            <span class="stat-value font-display" id="saudeSono">--</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Energia (média 7d)</span>
+            <span class="stat-value font-display" id="saudeEnergia">--</span>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:16px;">
+          <h3 class="panel-title">Registro de hoje</h3>
+          <form id="saudeForm" class="day-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));">
+            <label>Peso (kg)<input type="number" step="0.1" id="sPeso"></label>
+            <label>% Gordura<input type="number" step="0.1" id="sGordura"></label>
+            <label>Cintura (cm)<input type="number" step="0.1" id="sCintura"></label>
+            <label>Quadril (cm)<input type="number" step="0.1" id="sQuadril"></label>
+            <label>Peito (cm)<input type="number" step="0.1" id="sPeito"></label>
+            <label>Braço (cm)<input type="number" step="0.1" id="sBraco"></label>
+            <label>Coxa (cm)<input type="number" step="0.1" id="sCoxa"></label>
+            <label>Sono (h)<input type="number" step="0.5" id="sSono"></label>
+            <label>Água (L)<input type="number" step="0.1" id="sAgua"></label>
+            <label>Dor muscular (0-5)<input type="number" min="0" max="5" id="sDor"></label>
+            <label>Fadiga (0-5)<input type="number" min="0" max="5" id="sFadiga"></label>
+            <label>Energia (0-5)<input type="number" min="0" max="5" id="sEnergia"></label>
+            <label>Humor (0-5)<input type="number" min="0" max="5" id="sHumor"></label>
+          </form>
+          <label style="display:block; margin-top:12px; font-size:12px; color:var(--text-dim);">Observações
+            <textarea id="sObs" rows="2" style="width:100%; margin-top:6px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; color:var(--text); font-family:inherit; font-size:14px; resize:vertical;"></textarea>
+          </label>
+          <button class="btn-primary" id="saudeSaveBtn" style="width:100%; margin-top:14px;">Salvar registro de hoje</button>
+        </div>
+      </div>
+
+      <div class="modal-overlay" id="dayModal" style="display:none;">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 class="font-display" id="dayModalTitle">Registrar treino</h3>
+            <button id="dayModalClose" class="modal-close">✕</button>
+          </div>
+          <form id="dayForm" class="day-form">
+            <label>Etapa de referência
+              <select id="dayEtapa">
+                <option value="etapa1">1ª Etapa (Concurso)</option>
+                <option value="cfp">CFP</option>
+              </select>
+            </label>
+            <div class="day-grid" id="dayInputs"></div>
+            <div class="day-result" id="dayResult"></div>
+            <button type="submit" class="btn-primary" style="width:100%;">Salvar treino</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+
+<!-- ===== AUTH OVERLAY ===== -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-card">
+    <div class="brand" style="justify-content:center; padding-bottom:18px;">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L4 14H11L9.5 22L20 9H12.5L13 2Z" fill="url(#zeusGrad2)"/>
+        <defs>
+          <linearGradient id="zeusGrad2" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2E6FF2"/><stop offset="1" stop-color="#F2B705"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-name font-display" style="font-size:24px;">Zeus</span>
+    </div>
+    <p class="auth-sub">Entre para acompanhar sua preparação TAF</p>
+
+    <form id="authForm" class="auth-form">
+      <input type="email" id="authEmail" placeholder="E-mail" required autocomplete="email">
+      <input type="password" id="authPassword" placeholder="Senha" required autocomplete="current-password">
+      <button type="submit" class="btn-primary" id="authSubmit" style="width:100%;">Entrar</button>
+    </form>
+    <p class="auth-msg" id="authMsg"></p>
+  </div>
+</div>
+
+<script>
+  window.ZEUS_CONFIG = {
+    supabaseUrl: "https://zsuivfskeozybfpuonwl.supabase.co",
+    supabaseKey: "sb_publishable_7o1qmKFWSm-bPppPa3kMag_617lmP-n"
+  };
+
+  // Tema
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const themeLabel = document.getElementById('themeLabel');
+
+  function applyTheme(t){
+    root.setAttribute('data-theme', t);
+    themeIcon.textContent = t === 'dark' ? '☀️' : '🌙';
+    themeLabel.textContent = t === 'dark' ? 'Modo claro' : 'Modo escuro';
+    localStorage.setItem('zeus-theme', t);
+  }
+  applyTheme(localStorage.getItem('zeus-theme') || 'dark');
+  themeToggle.addEventListener('click', () => {
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // Menu mobile
+  const sidebar = document.getElementById('sidebar');
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+
+  // Navegação: troca de views
+  const VIEW_LABELS = {
+    dashboard:'Dashboard', treino:'Treino do dia', calendario:'Calendário',
+    exercicios:'Exercícios TAF', evolucao:'Evolução', saude:'Saúde', metas:'Metas'
+  };
+  function switchView(key){
+    document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+    const target = document.getElementById('view-' + key);
+    if (target) target.style.display = 'flex';
+    document.getElementById('pageTitle').textContent = VIEW_LABELS[key] || key;
+    if (key === 'calendario') renderCalendar();
+    if (key === 'exercicios') renderExercicios();
+    if (key === 'evolucao') renderEvolucao();
+    if (key === 'saude') renderSaude();
+  }
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      switchView(item.dataset.view);
+      sidebar.classList.remove('open');
+    });
+  });
+
+  // ===== ARMAZENAMENTO OFFLINE (localStorage) + SYNC =====
+  const LS_KEY = 'zeus_treinos';
+  function getTreinos(){
+    try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+    catch(e){ return []; }
+  }
+  function saveTreinoLocal(registro){
+    const lista = getTreinos().filter(t => t.data !== registro.data);
+    lista.push(registro);
+    lista.sort((a,b) => a.data.localeCompare(b.data));
+    localStorage.setItem(LS_KEY, JSON.stringify(lista));
+    syncTreino(registro); // best-effort, não bloqueia UI
+    return lista;
+  }
+  async function syncTreino(registro){
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      await sb.from('treinos').upsert({
+        user_id: session.user.id,
+        data: registro.data,
+        etapa: registro.etapa,
+        resultados: registro.resultados
+      }, { onConflict: 'user_id,data' });
+    } catch(e){ /* offline: mantém apenas local, sincroniza depois */ }
+  }
+
+  // ===== CALENDÁRIO =====
+  let calRefDate = new Date();
+  const DOW = ['D','S','T','Q','Q','S','S'];
+
+  function renderCalendar(){
+    const grid = document.getElementById('calGrid');
+    const label = document.getElementById('calMonthLabel');
+    const y = calRefDate.getFullYear(), m = calRefDate.getMonth();
+    label.textContent = calRefDate.toLocaleDateString('pt-BR', { month:'long', year:'numeric' });
+
+    const treinos = getTreinos();
+    const treinoDates = new Set(treinos.map(t => t.data));
+    const todayStr = new Date().toISOString().slice(0,10);
+
+    const firstDow = new Date(y, m, 1).getDay();
+    const daysInMonth = new Date(y, m+1, 0).getDate();
+
+    let html = DOW.map(d => `<div class="cal-dow">${d}</div>`).join('');
+    for (let i=0; i<firstDow; i++) html += `<div class="cal-day empty"></div>`;
+    for (let d=1; d<=daysInMonth; d++){
+      const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const classes = ['cal-day','in-month'];
+      if (dateStr === todayStr) classes.push('today');
+      if (treinoDates.has(dateStr)) classes.push('has-record');
+      html += `<div class="${classes.join(' ')}" data-date="${dateStr}">${d}</div>`;
+    }
+    grid.innerHTML = html;
+
+    grid.querySelectorAll('.cal-day.in-month').forEach(el => {
+      el.addEventListener('click', () => openDayModal(el.dataset.date));
+    });
+    renderHistorico(treinos);
+  }
+  document.getElementById('calPrev').addEventListener('click', () => {
+    calRefDate.setMonth(calRefDate.getMonth()-1); renderCalendar();
+  });
+  document.getElementById('calNext').addEventListener('click', () => {
+    calRefDate.setMonth(calRefDate.getMonth()+1); renderCalendar();
+  });
+
+  function renderHistorico(treinos){
+    const el = document.getElementById('historicoList');
+    if (!treinos.length){
+      el.innerHTML = `<div class="empty-state"><p>Nenhum treino registrado ainda.</p><span>Clique em um dia no calendário para adicionar um registro.</span></div>`;
+      return;
+    }
+    const ordenado = [...treinos].sort((a,b) => b.data.localeCompare(a.data));
+    el.innerHTML = ordenado.map(t => {
+      const r = calcMediaGeral(t.etapa, t.resultados);
+      const dataFmt = new Date(t.data + 'T12:00:00').toLocaleDateString('pt-BR');
+      return `<div class="historico-item">
+        <span class="hist-date">${dataFmt}</span>
+        <span class="hist-media">Média: ${r.media.toFixed(2)}</span>
+        <span class="badge ${r.aprovadoGeral ? 'aprovado' : 'reprovado'}">${r.aprovadoGeral ? 'Aprovado' : 'Abaixo da meta'}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // ===== MODAL DE REGISTRO ===== 
+  const dayModal = document.getElementById('dayModal');
+  const dayForm = document.getElementById('dayForm');
+  const dayEtapaSel = document.getElementById('dayEtapa');
+  let modalDate = null;
+
+  function buildDayInputs(){
+    const etapa = dayEtapaSel.value;
+    const tests = TAF_DATA[etapa].tests;
+    const existente = getTreinos().find(t => t.data === modalDate);
+    const valoresAtuais = (existente && existente.etapa === etapa) ? existente.resultados : {};
+    document.getElementById('dayInputs').innerHTML = Object.entries(tests).map(([key,t]) => `
+      <label>${t.nome} (${t.unidade})
+        <input type="number" step="0.01" id="input-${key}" value="${valoresAtuais[key] ?? ''}">
+      </label>
+    `).join('');
+    document.getElementById('dayResult').textContent = '';
+  }
+
+  function openDayModal(dateStr){
+    modalDate = dateStr;
+    const existente = getTreinos().find(t => t.data === dateStr);
+    if (existente) dayEtapaSel.value = existente.etapa;
+    document.getElementById('dayModalTitle').textContent =
+      'Registrar treino · ' + new Date(dateStr+'T12:00:00').toLocaleDateString('pt-BR');
+    buildDayInputs();
+    dayModal.style.display = 'flex';
+  }
+  document.getElementById('dayModalClose').addEventListener('click', () => dayModal.style.display = 'none');
+  dayEtapaSel.addEventListener('change', buildDayInputs);
+
+  dayForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const etapa = dayEtapaSel.value;
+    const resultados = {};
+    Object.keys(TAF_DATA[etapa].tests).forEach(key => {
+      const v = document.getElementById('input-'+key).value;
+      if (v !== '') resultados[key] = parseFloat(v);
+    });
+    saveTreinoLocal({ data: modalDate, etapa, resultados });
+    dayModal.style.display = 'none';
+    renderCalendar();
+  });
+
+  // ===== EXERCÍCIOS TAF =====
+  const exEtapaSel = document.getElementById('exEtapaSel');
+  exEtapaSel.addEventListener('change', renderExercicios);
+
+  function renderExercicios(){
+    const etapa = exEtapaSel.value;
+    const treinos = getTreinos().filter(t => t.etapa === etapa)
+      .sort((a,b) => a.data.localeCompare(b.data));
+    const tests = TAF_DATA[etapa].tests;
+
+    document.getElementById('exerciciosGrid').innerHTML = Object.entries(tests).map(([key,t]) => {
+      const ev = calcEvolucao(treinos, key);
+      const ultimoValor = treinos.length ? treinos[treinos.length-1].resultados[key] : undefined;
+      const pts = ultimoValor !== undefined ? calcPontos(t.faixas, ultimoValor) : 0;
+      const maxPts = etapa === 'etapa1' ? 5 : 10;
+      const pct = Math.min(100, Math.round((pts/maxPts)*100));
+      const tendIcon = ev.tendencia === 'subindo' ? '📈' : ev.tendencia === 'caindo' ? '📉' : '➖';
+
+      return `<div class="stat-card">
+        <div class="ex-card-header">
+          <span class="stat-label">${t.nome}</span>
+          <span>${tendIcon}</span>
+        </div>
+        <span class="stat-value font-display">${ultimoValor !== undefined ? ultimoValor : '--'} <small>${t.unidade}</small></span>
+        <span class="stat-trend">Recorde: ${ev.recorde !== null && ev.recorde !== undefined ? ev.recorde : '--'} · ${pts.toFixed(2)} pts</span>
+        <div class="ex-progress"><div class="ex-progress-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    }).join('');
+  }
+
+  // ===== EVOLUÇÃO (GRÁFICO) =====
+  const evTesteSel = document.getElementById('evTesteSel');
+  let evChartInstance = null;
+
+  function populateEvSelect(){
+    const etapa = 'etapa1'; // gráfico usa nomenclatura comum aos testes
+    evTesteSel.innerHTML = Object.entries(TAF_DATA[etapa].tests)
+      .map(([key,t]) => `<option value="${key}">${t.nome}</option>`).join('');
+  }
+  populateEvSelect();
+  evTesteSel.addEventListener('change', renderEvolucao);
+
+  function renderEvolucao(){
+    const testeKey = evTesteSel.value || Object.keys(TAF_DATA.etapa1.tests)[0];
+    const treinos = getTreinos().sort((a,b) => a.data.localeCompare(b.data));
+    const pontos = treinos.filter(t => t.resultados[testeKey] !== undefined);
+
+    const ctx = document.getElementById('evChart').getContext('2d');
+    if (evChartInstance) evChartInstance.destroy();
+    evChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: pontos.map(p => new Date(p.data+'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})),
+        datasets: [{
+          label: TAF_DATA.etapa1.tests[testeKey].nome,
+          data: pontos.map(p => p.resultados[testeKey]),
+          borderColor: '#2E6FF2',
+          backgroundColor: 'rgba(46,111,242,0.15)',
+          tension: 0.35,
+          fill: true,
+          pointBackgroundColor: '#F2B705',
+          pointRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display:false }, ticks:{ color:'#8B93A7' } },
+          y: { grid: { color:'rgba(255,255,255,0.06)' }, ticks:{ color:'#8B93A7' } }
+        }
+      }
+    });
+
+    const ev = calcEvolucao(pontos, testeKey);
+    document.getElementById('evRecorde').textContent = ev.recorde ?? '--';
+    document.getElementById('evTendencia').textContent =
+      ev.tendencia === 'subindo' ? 'Subindo 📈' : ev.tendencia === 'caindo' ? 'Caindo 📉' : 'Estável ➖';
+    document.getElementById('evVariacao').textContent = ev.variacaoPct ? `${ev.variacaoPct}%` : '--';
+  }
+
+  // ===== SAÚDE CORPORAL =====
+  const ALTURA_M = 1.83; // do perfil cadastrado
+  const LS_SAUDE = 'zeus_saude';
+
+  function getSaudeRegistros(){
+    try { return JSON.parse(localStorage.getItem(LS_SAUDE)) || []; }
+    catch(e){ return []; }
+  }
+  function saveSaudeLocal(registro){
+    const lista = getSaudeRegistros().filter(r => r.data !== registro.data);
+    lista.push(registro);
+    lista.sort((a,b) => a.data.localeCompare(b.data));
+    localStorage.setItem(LS_SAUDE, JSON.stringify(lista));
+    syncSaude(registro);
+    return lista;
+  }
+  async function syncSaude(registro){
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      await sb.from('saude').upsert({ user_id: session.user.id, ...registro }, { onConflict: 'user_id,data' });
+    } catch(e){ /* offline */ }
+  }
+  function classificaImc(imc){
+    if (imc < 18.5) return 'Abaixo do peso';
+    if (imc < 25) return 'Peso normal';
+    if (imc < 30) return 'Sobrepeso';
+    return 'Obesidade';
+  }
+  function mediaCampo(registros, campo, dias){
+    const corte = new Date(); corte.setDate(corte.getDate()-dias);
+    const filtrados = registros.filter(r => new Date(r.data) >= corte && r[campo] !== undefined && r[campo] !== null && r[campo] !== '');
+    if (!filtrados.length) return null;
+    const soma = filtrados.reduce((s,r) => s + parseFloat(r[campo]), 0);
+    return Math.round((soma/filtrados.length)*10)/10;
+  }
+
+  function renderSaude(){
+    const registros = getSaudeRegistros();
+    const todayStr = new Date().toISOString().slice(0,10);
+    const hoje = registros.find(r => r.data === todayStr);
+    const ultimo = registros[registros.length-1];
+
+    const pesoAtual = (hoje && hoje.peso) || (ultimo && ultimo.peso) || 93;
+    const imc = pesoAtual / (ALTURA_M*ALTURA_M);
+    document.getElementById('saudeImc').textContent = imc.toFixed(1);
+    document.getElementById('saudeImcLabel').textContent = classificaImc(imc);
+    document.getElementById('saudePeso').innerHTML = `${pesoAtual} <small>kg</small>`;
+    document.getElementById('saudePesoTrend').textContent = ultimo ? `Último registro: ${ultimo.data}` : 'Base cadastrada';
+
+    const sonoMedia = mediaCampo(registros, 'sono', 7);
+    const energiaMedia = mediaCampo(registros, 'energia', 7);
+    document.getElementById('saudeSono').innerHTML = sonoMedia !== null ? `${sonoMedia} <small>h</small>` : '--';
+    document.getElementById('saudeEnergia').textContent = energiaMedia !== null ? `${energiaMedia}/5` : '--';
+
+    // preenche form com registro de hoje, se existir
+    const campos = ['Peso','Gordura','Cintura','Quadril','Peito','Braco','Coxa','Sono','Agua','Dor','Fadiga','Energia','Humor'];
+    const chaveMap = { Peso:'peso',Gordura:'gordura',Cintura:'cintura',Quadril:'quadril',Peito:'peito',Braco:'braco',Coxa:'coxa',Sono:'sono',Agua:'agua',Dor:'dor',Fadiga:'fadiga',Energia:'energia',Humor:'humor' };
+    campos.forEach(c => {
+      const el = document.getElementById('s'+c);
+      if (el) el.value = hoje ? (hoje[chaveMap[c]] ?? '') : '';
+    });
+    document.getElementById('sObs').value = hoje ? (hoje.obs || '') : '';
+  }
+
+  document.getElementById('saudeSaveBtn').addEventListener('click', () => {
+    const campos = ['Peso','Gordura','Cintura','Quadril','Peito','Braco','Coxa','Sono','Agua','Dor','Fadiga','Energia','Humor'];
+    const chaveMap = { Peso:'peso',Gordura:'gordura',Cintura:'cintura',Quadril:'quadril',Peito:'peito',Braco:'braco',Coxa:'coxa',Sono:'sono',Agua:'agua',Dor:'dor',Fadiga:'fadiga',Energia:'energia',Humor:'humor' };
+    const registro = { data: new Date().toISOString().slice(0,10), obs: document.getElementById('sObs').value };
+    campos.forEach(c => {
+      const v = document.getElementById('s'+c).value;
+      if (v !== '') registro[chaveMap[c]] = parseFloat(v);
+    });
+    saveSaudeLocal(registro);
+    renderSaude();
+  });
+
+  // ===== PWA: SERVICE WORKER (via Blob, sem arquivo externo) =====
+  const SW_SOURCE = `
+    const CACHE = 'zeus-cache-v1';
+    self.addEventListener('install', e => { self.skipWaiting(); });
+    self.addEventListener('activate', e => { self.clients.claim(); });
+    self.addEventListener('fetch', e => {
+      if (e.request.method !== 'GET') return;
+      e.respondWith(
+        caches.open(CACHE).then(async cache => {
+          try {
+            const fresh = await fetch(e.request);
+            cache.put(e.request, fresh.clone());
+            return fresh;
+          } catch (err) {
+            const cached = await cache.match(e.request);
+            return cached || Promise.reject(err);
+          }
+        })
+      );
+    });
+  `;
+  if ('serviceWorker' in navigator) {
+    const swBlob = new Blob([SW_SOURCE], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swUrl).catch(() => {});
+  }
+
+  // ===== INDICADOR OFFLINE =====
+  const offlineBar = document.createElement('div');
+  offlineBar.id = 'offlineBar';
+  offlineBar.textContent = '⚡ Você está offline — os dados continuam sendo salvos localmente.';
+  offlineBar.style.cssText = 'display:none; position:fixed; bottom:0; left:0; right:0; z-index:2000; background:var(--gold); color:var(--navy); text-align:center; font-size:12px; font-weight:600; padding:9px;';
+  document.body.appendChild(offlineBar);
+  function updateOnlineStatus(){
+    offlineBar.style.display = navigator.onLine ? 'none' : 'block';
+    if (navigator.onLine) {
+      getTreinos().forEach(syncTreino);
+      getSaudeRegistros().forEach(syncSaude);
+    }
+  }
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+  updateOnlineStatus();
+
+  // ===== BOTÃO DE INSTALAÇÃO PWA =====
+  let deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    installBtn.style.display = 'flex';
+  });
+  const installBtn = document.createElement('button');
+  installBtn.id = 'installBtn';
+  installBtn.textContent = '⬇ Instalar app';
+  installBtn.className = 'theme-toggle';
+  installBtn.style.display = 'none';
+  installBtn.style.marginTop = '8px';
+  installBtn.addEventListener('click', async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installBtn.style.display = 'none';
+  });
+  document.querySelector('.sidebar').appendChild(installBtn);
+
+  // ===== DADOS OFICIAIS TAF/CFP =====
+  const TAF_DATA = {
+    etapa1: { label:"1ª Etapa (Concurso)", minPerTest:2.00, minAverage:3.00,
+      tests:{
+        barra:{ nome:"Flexão em Barra Fixa", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2,pts:0},{min:3,max:3,pts:2.0},{min:4,max:4,pts:2.5},
+            {min:5,max:5,pts:3.0},{min:6,max:6,pts:3.5},{min:7,max:7,pts:4.0},
+            {min:8,max:8,pts:4.5},{min:9,max:Infinity,pts:5.0}
+          ]},
+        shuttle:{ nome:"Shuttle Run (Ir e Vir)", unidade:"segundos", direcao:"menor_melhor",
+          faixas:[
+            {min:14.00,max:Infinity,pts:0},{min:13.50,max:13.99,pts:2.0},
+            {min:13.00,max:13.49,pts:2.5},{min:12.50,max:12.99,pts:3.0},
+            {min:12.00,max:12.49,pts:3.5},{min:11.50,max:11.99,pts:4.0},
+            {min:11.00,max:11.49,pts:4.5},{min:0,max:10.99,pts:5.0}
+          ]},
+        impulsao:{ nome:"Impulsão Horizontal", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2.00,pts:0},{min:2.01,max:2.05,pts:2.0},
+            {min:2.06,max:2.10,pts:2.5},{min:2.11,max:2.15,pts:3.0},
+            {min:2.16,max:2.20,pts:3.5},{min:2.21,max:2.25,pts:4.0},
+            {min:2.26,max:2.30,pts:4.5},{min:2.31,max:Infinity,pts:5.0}
+          ]},
+        abdominal:{ nome:"Flexão Abdominal (1 min)", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:34,pts:0},{min:35,max:38,pts:2.0},{min:39,max:42,pts:2.5},
+            {min:43,max:46,pts:3.0},{min:47,max:50,pts:3.5},{min:51,max:54,pts:4.0},
+            {min:55,max:58,pts:4.5},{min:59,max:Infinity,pts:5.0}
+          ]},
+        corrida:{ nome:"Corrida de 12 Minutos", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2300,pts:0},{min:2301,max:2400,pts:2.0},
+            {min:2401,max:2500,pts:2.5},{min:2501,max:2600,pts:3.0},
+            {min:2601,max:2700,pts:3.5},{min:2701,max:2800,pts:4.0},
+            {min:2801,max:2900,pts:4.5},{min:2901,max:Infinity,pts:5.0}
+          ]}
+      }
+    },
+    cfp: { label:"CFP (Curso de Formação Policial)", minPerTest:6.00, minAverage:7.00,
+      tests:{
+        barra:{ nome:"Flexão em Barra Fixa", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:4,pts:0},{min:5,max:5,pts:6.0},{min:6,max:6,pts:6.5},
+            {min:7,max:7,pts:7.0},{min:8,max:8,pts:7.5},{min:9,max:9,pts:8.0},
+            {min:10,max:10,pts:8.5},{min:11,max:11,pts:9.0},{min:12,max:12,pts:9.5},
+            {min:13,max:Infinity,pts:10.0}
+          ]},
+        shuttle:{ nome:"Shuttle Run (Ir e Vir)", unidade:"segundos", direcao:"menor_melhor",
+          faixas:[
+            {min:12.50,max:Infinity,pts:0},{min:12.00,max:12.49,pts:6.0},
+            {min:11.50,max:11.99,pts:6.5},{min:11.00,max:11.49,pts:7.0},
+            {min:10.50,max:10.99,pts:7.5},{min:10.00,max:10.49,pts:8.0},
+            {min:9.50,max:9.99,pts:8.5},{min:9.00,max:9.49,pts:9.0},
+            {min:8.50,max:8.99,pts:9.5},{min:0,max:8.49,pts:10.0}
+          ]},
+        impulsao:{ nome:"Impulsão Horizontal", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2.10,pts:0},{min:2.11,max:2.15,pts:6.0},
+            {min:2.16,max:2.20,pts:6.5},{min:2.21,max:2.25,pts:7.0},
+            {min:2.26,max:2.30,pts:7.5},{min:2.31,max:2.35,pts:8.0},
+            {min:2.36,max:2.40,pts:8.5},{min:2.41,max:2.45,pts:9.0},
+            {min:2.46,max:2.50,pts:9.5},{min:2.51,max:Infinity,pts:10.0}
+          ]},
+        abdominal:{ nome:"Flexão Abdominal (1 min)", unidade:"repetições", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:37,pts:0},{min:38,max:40,pts:6.0},{min:41,max:43,pts:6.5},
+            {min:44,max:46,pts:7.0},{min:47,max:49,pts:7.5},{min:50,max:52,pts:8.0},
+            {min:53,max:55,pts:8.5},{min:56,max:58,pts:9.0},{min:59,max:61,pts:9.5},
+            {min:62,max:Infinity,pts:10.0}
+          ]},
+        corrida:{ nome:"Corrida de 12 Minutos", unidade:"metros", direcao:"maior_melhor",
+          faixas:[
+            {min:0,max:2450,pts:0},{min:2451,max:2550,pts:6.0},
+            {min:2551,max:2650,pts:6.5},{min:2651,max:2750,pts:7.0},
+            {min:2751,max:2850,pts:7.5},{min:2851,max:2950,pts:8.0},
+            {min:2951,max:3050,pts:8.5},{min:3051,max:3150,pts:9.0},
+            {min:3151,max:3250,pts:9.5},{min:3251,max:Infinity,pts:10.0}
+          ]}
+      }
+    }
+  };
+
+  // ===== ENGINE DE CÁLCULO =====
+  function calcPontos(faixas, valor){
+    if (valor === null || valor === undefined || isNaN(valor)) return 0;
+    const f = faixas.find(f => valor >= f.min && valor <= f.max);
+    return f ? f.pts : 0;
+  }
+
+  function calcResultadoTeste(etapaKey, testeKey, valor){
+    const teste = TAF_DATA[etapaKey].tests[testeKey];
+    const pts = calcPontos(teste.faixas, valor);
+    const aprovado = pts >= TAF_DATA[etapaKey].minPerTest;
+    return { pts, aprovado };
+  }
+
+  function calcMediaGeral(etapaKey, resultados){
+    // resultados = { barra, shuttle, impulsao, abdominal, corrida }
+    const chaves = Object.keys(TAF_DATA[etapaKey].tests);
+    let soma = 0, count = 0;
+    const detalhe = {};
+    chaves.forEach(k => {
+      if (resultados[k] !== undefined && resultados[k] !== null && resultados[k] !== '') {
+        const r = calcResultadoTeste(etapaKey, k, parseFloat(resultados[k]));
+        detalhe[k] = r;
+        soma += r.pts; count++;
+      }
+    });
+    const media = count ? soma / count : 0;
+    const aprovadoGeral = media >= TAF_DATA[etapaKey].minAverage &&
+      Object.values(detalhe).every(d => d.pts >= TAF_DATA[etapaKey].minPerTest);
+    return { media: Math.round(media*100)/100, aprovadoGeral, detalhe, testesPreenchidos: count };
+  }
+
+  function calcEvolucao(historico, testeKey){
+    // historico = array ordenado por data crescente de { data, resultados:{...} }
+    const pontos = historico
+      .filter(h => h.resultados[testeKey] !== undefined)
+      .map(h => ({ data: h.data, valor: parseFloat(h.resultados[testeKey]) }));
+    if (pontos.length < 2) return { variacaoPct:0, tendencia:'estável', recorde:pontos[0]?.valor ?? null };
+
+    const anterior = pontos[pontos.length-2].valor;
+    const ultimo = pontos[pontos.length-1].valor;
+    const teste = TAF_DATA.etapa1.tests[testeKey];
+    const melhorMaior = teste?.direcao !== 'menor_melhor';
+
+    const diff = melhorMaior ? ultimo - anterior : anterior - ultimo;
+    const variacaoPct = anterior !== 0 ? Math.round((diff/Math.abs(anterior))*10000)/100 : 0;
+    const recorde = melhorMaior ? Math.max(...pontos.map(p=>p.valor)) : Math.min(...pontos.map(p=>p.valor));
+    const tendencia = variacaoPct > 0.5 ? 'subindo' : variacaoPct < -0.5 ? 'caindo' : 'estável';
+
+    return { variacaoPct, tendencia, recorde, anterior, ultimo };
+  }
+
+  function calcPrevisaoMeta(historico, testeKey, metaValor){
+    const pontos = historico
+      .filter(h => h.resultados[testeKey] !== undefined)
+      .map(h => ({ data:new Date(h.data), valor: parseFloat(h.resultados[testeKey]) }));
+    if (pontos.length < 2) return { diasEstimados:null, mensagem:'Dados insuficientes para previsão.' };
+
+    const primeiro = pontos[0], ultimo = pontos[pontos.length-1];
+    const dias = (ultimo.data - primeiro.data) / 86400000;
+    const teste = TAF_DATA.etapa1.tests[testeKey];
+    const melhorMaior = teste?.direcao !== 'menor_melhor';
+    const ritmoDia = dias > 0 ? (ultimo.valor - primeiro.valor) / dias : 0;
+
+    if ((melhorMaior && ritmoDia <= 0) || (!melhorMaior && ritmoDia >= 0)) {
+      return { diasEstimados:null, mensagem:'Sem tendência de evolução suficiente para prever.' };
+    }
+    const faltante = melhorMaior ? metaValor - ultimo.valor : ultimo.valor - metaValor;
+    if (faltante <= 0) return { diasEstimados:0, mensagem:'Meta já atingida!' };
+
+    const diasEstimados = Math.ceil(faltante / Math.abs(ritmoDia));
+    return { diasEstimados, mensagem:`Estimativa de ${diasEstimados} dias para atingir a meta.` };
+  }
+
+  // ===== AUTH =====
+  const { createClient } = supabase;
+  const sb = createClient(window.ZEUS_CONFIG.supabaseUrl, window.ZEUS_CONFIG.supabaseKey);
+
+  const authOverlay = document.getElementById('authOverlay');
+  const appShell = document.getElementById('appShell');
+  const authForm = document.getElementById('authForm');
+  const authMsg = document.getElementById('authMsg');
+  const authSubmit = document.getElementById('authSubmit');
+
+  authForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    authSubmit.textContent = 'Entrando...';
+    authMsg.textContent = '';
+    const email = document.getElementById('authEmail').value;
+    const password = document.getElementById('authPassword').value;
+
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      authMsg.textContent = 'E-mail ou senha inválidos.';
+      authMsg.classList.add('error');
+    }
+    authSubmit.textContent = 'Entrar';
+  });
+
+  async function checkSession(){
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      authOverlay.style.display = 'none';
+      appShell.style.display = 'flex';
+    } else {
+      authOverlay.style.display = 'flex';
+      appShell.style.display = 'none';
+    }
+  }
+  sb.auth.onAuthStateChange(() => checkSession());
+  checkSession();
+</script>
+
+</body>
+</html>
